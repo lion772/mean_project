@@ -8,7 +8,11 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onRedial()">
+    <button
+      mat-menu-item
+      (click)="onRedial()"
+      [routerLink]="['post/post-create']"
+    >
       <mat-icon>dialpad</mat-icon>
       <span>Redial</span>
     </button>
@@ -16,7 +20,7 @@
       <mat-icon>voicemail</mat-icon>
       <span>Check voice mail</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item routerLink="post/post-list">
       <mat-icon>notifications_off</mat-icon>
       <span>Disable alerts</span>
     </button>

@@ -14,11 +14,25 @@ import { PostCreateComponent } from './post/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 
+import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
+
+import { Routes, RouterModule } from '@angular/router';
+import { NotfoundComponent } from './notfound/notfound.component'; // CLI imports router
+
+const routes: Routes = [{ path: 'post', component: PostListComponent }];
+
 @NgModule({
-  declarations: [AppComponent, PostCreateComponent, HeaderComponent, PostListComponent],
+  declarations: [
+    AppComponent,
+    PostCreateComponent,
+    HeaderComponent,
+    PostListComponent,
+    NotfoundComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     FormsModule,
     MatButtonModule,
     MatInputModule,
