@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-create',
@@ -6,14 +8,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./post-create.component.css'],
 })
 export class PostCreateComponent implements OnInit {
-  value = '';
   textareaInput = '';
+  postList: string[] = [];
 
-  constructor() {}
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
-    this.value = this.textareaInput;
+    this.postService.setPost(this.textareaInput);
   }
 }

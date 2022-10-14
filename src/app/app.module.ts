@@ -12,9 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
+import { PostListComponent } from './post/post-list/post-list.component';
 
 @NgModule({
-  declarations: [AppComponent, PostCreateComponent, HeaderComponent],
+  declarations: [AppComponent, PostCreateComponent, HeaderComponent, PostListComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
