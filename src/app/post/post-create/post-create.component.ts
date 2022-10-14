@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-post-create',
@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class PostCreateComponent implements OnInit {
   value = '';
   textareaInput = '';
+
   constructor() {}
 
   ngOnInit(): void {}
 
-  onSubmit(input: HTMLTextAreaElement) {
-    console.log(input.value);
+  onSubmit() {
+    this.value = this.textareaInput;
   }
 }

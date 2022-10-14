@@ -2,11 +2,9 @@
   <mat-form-field>
     <textarea matInput rows="6" [(ngModel)]="textareaInput" #input></textarea>
   </mat-form-field>
-</mat-card>
-<div>
-  <button class="btn btn-primary" type="button" (click)="onSubmit(input)">
+  <button mat-raised-button color="primary" type="button" (click)="onSubmit()">
     Save Post
   </button>
-</div>
+</mat-card>
 
-<p>{{ textareaInput }}</p>
+<p>{{ value }}</p>
