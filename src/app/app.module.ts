@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRouti
 
 import { Routes, RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component'; // CLI imports router
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [{ path: 'post', component: PostListComponent }];
 
@@ -40,6 +41,7 @@ const routes: Routes = [{ path: 'post', component: PostListComponent }];
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

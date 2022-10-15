@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../post.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-create',
@@ -14,7 +15,8 @@ export class PostCreateComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -26,5 +28,20 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit() {
     this.postService.setPost(this.textareaInput);
+    this.callServer(this.textareaInput);
+  }
+
+  callServer(post: string) {
+    const headers = new HttpHeaders()
+      .set('Authorization', 'my-auth-token')
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+
+    this.http
+      .post('http://localhost:3000/post', JSON.stringify(post), {
+        headers: headers,
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }
