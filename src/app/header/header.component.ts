@@ -23,8 +23,4 @@ export class HeaderComponent implements OnInit {
   /*someMethod() {
     this.trigger.openMenu();
   }*/
-
-  onRedial() {
-    console.log('redial');
-  }
 }
