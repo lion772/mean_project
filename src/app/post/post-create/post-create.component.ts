@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../post.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PostModel } from '../post.model';
 
 @Component({
   selector: 'app-post-create',
@@ -10,13 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PostCreateComponent implements OnInit {
   textareaInput = '';
+  inputTitle = '';
   postList: string[] = [];
   paramName: string = '';
+  postModel!: PostModel;
 
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute,
-    private http: HttpClient
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -27,21 +29,6 @@ export class PostCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.postService.setPost(this.textareaInput);
-    this.callServer(this.textareaInput);
-  }
-
-  callServer(post: string) {
-    const headers = new HttpHeaders()
-      .set('Authorization', 'my-auth-token')
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    this.http
-      .post('http://localhost:3000/post', JSON.stringify(post), {
-        headers: headers,
-      })
-      .subscribe((data) => {
-        console.log(data);
-      });
+    this.postService.addPost(this.inputTitle, this.textareaInput);
   }
 }

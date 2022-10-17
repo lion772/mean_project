@@ -7,6 +7,14 @@ button {
   width: 100px;
 }
 
+.mat-card-title {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .mat-card-main {
   width: 80%;
   margin: auto;
