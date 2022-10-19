@@ -1,18 +1,21 @@
-const uploadRoute = require("./routes/upload");
-const getRoute = require("./routes/posts");
-const addRoute = require("./routes/add-post");
-const deleteRoute = require("./routes/delete-post");
 const express = require("express");
 const bodyParser = require("body-parser");
+const app = express();
+
+const updateRoute = require("./routes/upload");
+const addRoute = require("./routes/add-post");
+const deleteRoute = require("./routes/delete-post");
+const getRoute = require("./routes/posts");
 
 const port = process.env.PORT || 3000;
-const app = express();
+const cors = require("cors");
+app.use(cors());
+require("dotenv").config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.json());
 
-app.all("/*", (req, res, next) => {
+app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   res.header(
@@ -23,13 +26,10 @@ app.all("/*", (req, res, next) => {
   next();
 });
 
-const cors = require("cors");
-app.use(cors());
-
-app.use("/", uploadRoute);
 app.use("/", getRoute);
 app.use("/", addRoute);
 app.use("/", deleteRoute);
+app.use("/", updateRoute);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);

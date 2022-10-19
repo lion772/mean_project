@@ -80,7 +80,7 @@ export class PostService {
     return new Promise<any>((resolve, reject) => {
       this.http
         .post<{ message: string; post: any }>(
-          'http://localhost:3000/post',
+          'http://localhost:3000/',
           postCreated
         )
         .subscribe((data) => {
