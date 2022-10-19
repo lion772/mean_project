@@ -1,9 +1,5 @@
-<mat-card
-  class="post-content"
-  *ngFor="let post of postList"
-  (click)="onClick(post.id)"
->
-  <div>
+<mat-card class="post-content" *ngFor="let post of postList">
+  <div (click)="onClick(post.id)">
     {{ post.title }} -
     <span>{{ post.content }}</span>
   </div>

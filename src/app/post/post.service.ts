@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PostModel } from './post.model';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class PostService {
 
   async getPostsPromise(): Promise<PostModel[]> {
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/')
+      fetch('http://localhost:3000/post-list')
         .then((response) => response.json())
         .then(({ rows }) => {
           this.postlist = this.mapPost(rows);
