@@ -3,11 +3,9 @@
   <mat-form-field>
     <input matInput [(ngModel)]="inputTitle" />
   </mat-form-field>
-</mat-card>
-<mat-card class="mat-card-main">
   <h3>Enter your content:</h3>
   <mat-form-field>
-    <textarea matInput rows="6" [(ngModel)]="textareaInput"></textarea>
+    <input matInput [(ngModel)]="textareaInput" />
   </mat-form-field>
   <button mat-raised-button color="primary" type="button" (click)="onSubmit()">
     Save Post

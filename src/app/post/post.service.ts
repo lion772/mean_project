@@ -34,27 +34,99 @@ export class PostService {
         this.postlist = pipedData;
         this.postlistUpdated.next([...this.postlist]);
       });
+  }
 
-    return this.postlist;
+  async getPostsPromise(): Promise<PostModel[]> {
+    return new Promise((resolve, reject) => {
+      fetch('http://localhost:3000/post-list')
+        .then((response) => response.json())
+        .then(({ rows }) => {
+          this.postlist = this.mapPost(rows);
+          resolve(rows);
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
+  mapPost(posts: any[]) {
+    return posts.map((post) => {
+      return { id: post._id, title: post.title, content: post.content };
+    });
+  }
+
+  getPost(id: string) {
+    return { ...this.postlist.find((p) => p.id === id) };
+  }
+
+  updatePost(id: string, title: string, content: string) {
+    const postToUpdate = { _id: id, title: title, content: content };
+    console.log(postToUpdate);
+    this.http
+      .put<{ message: string }>(
+        `http://localhost:3000/update/${id}`,
+        postToUpdate
+      )
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
   getPostUpdatedListener() {
     return this.postlistUpdated.asObservable();
   }
 
-  addPost(title: string, content: string) {
+  async addPost(title: string, content: string): Promise<any> {
     const postCreated = { id: null, title: title, content: content };
+    return new Promise<any>((resolve, reject) => {
+      this.http
+        .post<{ message: string; post: any }>(
+          'http://localhost:3000/post',
+          postCreated
+        )
+        .subscribe((data) => {
+          if (!data) {
+            reject('Something went wrong!');
+          }
+          console.log(data);
+          resolve(data);
+        });
+    });
+  }
 
+  /*async addPostPromise(title: string, content: string): Promise<any> {
+    let fd = new FormData();
+    fd.append('title', title);
+    fd.append('content', content);
+    console.log(fd);
+
+    return new Promise<any>((resolve, reject) => {
+      fetch('http://localhost:3000/post-create', {
+        method: 'POST',
+        body: fd,
+      })
+        .then((res) => res.json())
+        .then(({ rows }) => {
+          console.log(rows);
+          resolve(rows);
+        })
+        .catch((err) => reject(err));
+    });
+  }*/
+
+  deletePost(id: string) {
+    //const postToDelete = { _id: id, title: title, content: content };
     this.http
-      .post<{ message: string; post: any }>(
-        'http://localhost:3000/post',
-        postCreated
+      .delete<{ message: string; isDeleted: boolean }>(
+        `http://localhost:3000/delete/${id}`
+      )
+      .pipe(
+        map((res) => {
+          return res.isDeleted;
+        })
       )
       .subscribe((data) => {
-        console.log(data);
+        console.log('deleted!', data);
+        return data;
       });
-  }
-  clear() {
-    this.postlist = [];
   }
 }

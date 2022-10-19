@@ -1,0 +1,56 @@
+<div class="detail-container" *ngIf="!isEditable">
+  <h3>In details you have:</h3>
+  <mat-card>
+    <div class="container">
+      <label for="id">ID</label>
+      <mat-form-field>
+        <input matInput value="{{ postId }}" />
+      </mat-form-field>
+      <label for="title">Title</label>
+      <mat-form-field>
+        <input matInput value="{{ title }} " />
+      </mat-form-field>
+      <label for="content">Content</label>
+      <mat-form-field>
+        <input matInput value="{{ content }}" />
+      </mat-form-field>
+    </div>
+    <div class="btn">
+      <button
+        mat-raised-button
+        color="basic"
+        (click)="isEditable = !isEditable"
+      >
+        Edit
+      </button>
+    </div>
+  </mat-card>
+</div>
+
+<div class="detail-container" *ngIf="isEditable">
+  <h3>In details you have:</h3>
+  <mat-card>
+    <div class="container">
+      <label for="id">ID</label>
+      <mat-form-field>
+        <input matInput value="{{ postId }}" />
+      </mat-form-field>
+      <label for="title">Title</label>
+      <mat-form-field>
+        <input matInput value="{{ title }}" [(ngModel)]="title" />
+      </mat-form-field>
+      <label for="content">Content</label>
+      <mat-form-field>
+        <input matInput value="{{ content }}" [(ngModel)]="content" />
+      </mat-form-field>
+    </div>
+    <div class="btn">
+      <button mat-raised-button color="basic" (click)="onUpdatePost()">
+        Update
+      </button>
+      <button mat-raised-button color="warn" (click)="onDeletePost()">
+        Delete
+      </button>
+    </div>
+  </mat-card>
+</div>

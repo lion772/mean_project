@@ -59,6 +59,18 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/post-list", (req, res) => {
+  console.log("Post-list route called!");
+  Post.find()
+    .then((rows) => {
+      console.log(rows);
+      res.json({ rows });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 app.post("/post", (req, res) => {
   console.log("body is ", req.body);
   let newPost = new Post({
@@ -67,6 +79,35 @@ app.post("/post", (req, res) => {
   });
   newPost.save().then((post) => {
     res.status(201).json({ msg: "Data stored successfully!", post: post });
+  });
+});
+
+/*app.post("/post-create", (req, res) => {
+  console.log("req file", req.file);
+  console.log("Post-create route called!");
+
+  let newPost = new Post({
+    title: req.body.title,
+    content: req.body.content,
+  });
+  newPost.save().then((rows) => {
+    res.json({ rows });
+  });
+});*/
+
+app.put("/update/:id", (req, res) => {
+  console.log("updated!", req.params.id, req.body);
+  const reqToUpdate = req.body;
+  Post.updateOne({ _id: req.params.id }, reqToUpdate).then((res) => {
+    console.log("Updated successfully!", res);
+  });
+});
+
+app.delete("/delete/:id", (req, res) => {
+  console.log("preparing to delete", req.params.id);
+  Post.deleteOne({ _id: req.params.id }).then((data) => {
+    console.log("Deleted successfully!", data);
+    res.status(200).json({ message: "Deleted successfully!", isDeleted: true });
   });
 });
 

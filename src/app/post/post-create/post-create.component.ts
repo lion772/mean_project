@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../post.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PostModel } from '../post.model';
 
 @Component({
@@ -18,17 +17,17 @@ export class PostCreateComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.paramName = params['name'];
-      console.log(this.paramName);
-    });
-  }
+  ngOnInit() {}
 
-  onSubmit() {
-    this.postService.addPost(this.inputTitle, this.textareaInput);
+  async onSubmit() {
+    const dataRetrieved = await this.postService.addPost(
+      this.inputTitle,
+      this.textareaInput
+    );
+    this.router.navigate(['post/post-list']);
   }
 }

@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRouti
 import { Routes, RouterModule } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component'; // CLI imports router
 import { HttpClientModule } from '@angular/common/http';
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
 
 const routes: Routes = [{ path: 'post', component: PostListComponent }];
 
@@ -29,6 +30,7 @@ const routes: Routes = [{ path: 'post', component: PostListComponent }];
     HeaderComponent,
     PostListComponent,
     NotfoundComponent,
+    PostDetailComponent,
   ],
   imports: [
     BrowserModule,
