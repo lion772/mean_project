@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,8 +12,8 @@ export class PostDetailComponent implements OnInit {
   postId!: string;
   title!: string;
   content!: string;
-  postFound: any;
   isEditable: boolean = false;
+
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
@@ -38,10 +38,6 @@ export class PostDetailComponent implements OnInit {
       .subscribe((retrievedData) => {
         this.content = retrievedData;
       });
-
-    //this.postFound = this.postService.getPost(String(this.postId));
-    //this.title = this.postFound['title'];
-    //this.content = this.postFound['content'];
   }
 
   onUpdatePost() {
@@ -50,7 +46,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onDeletePost = async () => {
-    const isPostDeleted = await this.postService.deletePost(this.postId);
+    await this.postService.deletePost(this.postId);
     this.router.navigate(['/post/post-list']);
   };
 }
