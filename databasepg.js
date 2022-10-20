@@ -17,14 +17,6 @@ const pool = new Pool({
   database: DB_DATABASE,
 });
 
-const client = new Client({
-  host: DB_HOST,
-  user: DB_USER,
-  port: DB_PORT,
-  password: DB_PASSWORD,
-  database: DB_DATABASE,
-});
-
 client.connect();
 
 /*pool.query("DROP TABLE post IF EXISTS post", (err) => {
