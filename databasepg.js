@@ -17,8 +17,6 @@ const pool = new Pool({
   database: DB_DATABASE,
 });
 
-client.connect();
-
 /*pool.query("DROP TABLE post IF EXISTS post", (err) => {
   if (err) console.log(err);
   pool.end;
