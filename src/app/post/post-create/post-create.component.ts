@@ -23,11 +23,12 @@ export class PostCreateComponent implements OnInit {
 
   ngOnInit() {}
 
-  async onSubmit() {
-    const dataRetrieved = await this.postService.addPost(
+  onSubmit() {
+    const dataRetrieved = this.postService.addPost(
       this.inputTitle,
       this.textareaInput
     );
+    console.log('Data on post create', dataRetrieved);
     this.router.navigate(['post/post-list']);
   }
 }

@@ -23,8 +23,8 @@ app.all("/*", function (req, res, next) {
   next();
 });
 
-app.use("/", getRoute);
-app.use("/", addRoute);
+app.use("/list", getRoute);
+app.use("/insert", addRoute);
 app.use("/", deleteRoute);
 app.use("/", updateRoute);
 

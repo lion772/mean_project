@@ -38,9 +38,10 @@ export class PostService {
 
   async getPostsPromise(): Promise<PostModel[]> {
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/')
+      fetch('http://localhost:3000/list')
         .then((response) => response.json())
-        .then(({ rows }) => {
+        .then((rows) => {
+          console.log(rows);
           this.postlist = this.mapPost(rows);
           resolve(rows);
         })
@@ -78,9 +79,9 @@ export class PostService {
   async addPost(title: string, content: string): Promise<any> {
     const postCreated = { id: null, title: title, content: content };
     return new Promise<any>((resolve, reject) => {
-      this.http
+      return this.http
         .post<{ message: string; post: any }>(
-          'http://localhost:3000/',
+          'http://localhost:3000/insert',
           postCreated
         )
         .subscribe((data) => {

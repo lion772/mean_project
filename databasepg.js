@@ -27,8 +27,13 @@ const client = new Client({
 
 client.connect();
 
-/*pool.query(
-  "CREATE TABLE post (id INT, name VARCHAR(255) NOT NULL)",
+/*pool.query("DROP TABLE post IF EXISTS post", (err) => {
+  if (err) console.log(err);
+  pool.end;
+});
+
+pool.query(
+  "CREATE TABLE post (id SERIAL PRIMARY KEY, title VARCHAR(255), content VARCHAR(255))",
   (err, res) => {
     if (err) {
       console.log(err);
@@ -41,15 +46,41 @@ client.connect();
   }
 );*/
 
-pool.query("select * from post", (err, res) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log("***************************************");
-  console.log("POOL");
-  console.log("***************************************");
-  console.log(res.rows);
-  client.end;
-});
+module.exports.insertPost = function (title, content) {
+  pool.query(
+    "insert into post (title, content) values ($1, $2) returning *",
+    [title, content],
+    (err, res) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res);
+    }
+  );
+};
 
-module.exports = client;
+module.exports.getPosts = function () {
+  return (async () => {
+    const client = await pool.connect();
+    try {
+      return await client.query("SELECT * FROM post");
+    } catch (err) {
+      console.log(err.stack);
+    } finally {
+      client.release();
+    }
+  })();
+};
+/*return pool.connect().then((client) => {
+    return client
+      .query("SELECT * FROM post")
+      .then((res) => {
+        client.release();
+        console.log(res.rows);
+        return res.rows;
+      })
+      .catch((err) => {
+        client.release();
+        console.log(err.stack);
+      });
+  });*/

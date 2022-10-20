@@ -23,6 +23,7 @@ export class PostListComponent implements OnInit {
     this.postList = this.postService.mapPost(
       await this.postService.getPostsPromise()
     );
+    console.log(this.postList);
   }
 
   /*ngOnInit() {
