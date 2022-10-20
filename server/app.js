@@ -8,9 +8,6 @@ const deleteRoute = require("./routes/delete-post");
 const getRoute = require("./routes/posts");
 
 const port = process.env.PORT || 3000;
-const cors = require("cors");
-app.use(cors());
-require("dotenv").config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
