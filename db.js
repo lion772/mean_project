@@ -2,7 +2,7 @@ const { createPool } = require("mysql");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT } = require("./secrets");
 require("dotenv").config();
 
-// Postgres Configuration
+// sql Configuration
 const pool = createPool({
   host: DB_HOST,
   user: DB_USER,
