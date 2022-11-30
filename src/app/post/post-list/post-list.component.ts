@@ -19,14 +19,14 @@ export class PostListComponent implements OnInit {
 
   constructor(private postService: PostService, private router: Router) {}
 
-  async ngOnInit() {
+  /* async ngOnInit() {
     this.postList = this.postService.mapPost(
       await this.postService.getPostsPromise()
     );
     console.log(this.postList);
   }
-
-  /*ngOnInit() {
+ */
+  ngOnInit() {
     this.postService.getPosts();
 
     this.subscription = this.postService
@@ -38,10 +38,10 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    //this.subscription.unsubscribe();
-  }*/
+    this.subscription.unsubscribe();
+  }
 
-  async retrieveListPosts(): Promise<any> {
+ /*  async retrieveListPosts(): Promise<any> {
     const success = await this.postService.getPostsPromise();
     if (!success) {
       console.log('an error has occurred ');
@@ -50,7 +50,7 @@ export class PostListComponent implements OnInit {
     }
 
     this.router.navigate(['/post/post-list']);
-  }
+  } */
 
   onClick(id: string) {
     this.postId = id;

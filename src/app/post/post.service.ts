@@ -94,7 +94,7 @@ export class PostService {
     });
   }
 
-  /*async addPostPromise(title: string, content: string): Promise<any> {
+  /* async addPostPromise(title: string, content: string): Promise<any> {
     let fd = new FormData();
     fd.append('title', title);
     fd.append('content', content);
@@ -112,7 +112,7 @@ export class PostService {
         })
         .catch((err) => reject(err));
     });
-  }*/
+  } */
 
   deletePost(id: string) {
     //const postToDelete = { _id: id, title: title, content: content };

@@ -18,7 +18,7 @@ router.post("/", function (req, res) {
 //PostgreSQL
 /*router.post("/", async function (req, res) {
   console.log("body is ", req.body);
-  let newPost = new Post({
+  let newPost =  new Post({
     title: req.body.title,
     content: req.body.content,
   });
