@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
@@ -10,43 +10,32 @@ import { PostModel } from './post.model';
 })
 export class PostService {
   private postlist: PostModel[] = [];
-  private postlistUpdated = new Subject<PostModel[]>();
+  private postlistUpdated = new BehaviorSubject<PostModel[] | null>(null);
+  postlistUpdated$ = this.postlistUpdated.asObservable();
   constructor(private http: HttpClient) {}
 
   getPosts() {
-    this.http
-      .get<{ message: string; posts: any }>('http://localhost:3000/')
+    return this.http
+      .get<{ message: string; posts: PostModel[] }>(
+        'http://localhost:3000/list'
+      )
       .pipe(
-        map((postRetrieved) => {
-          console.log('pipe', postRetrieved);
-          return postRetrieved.posts.map((postData: any) => {
-            console.log(postData);
-            return {
+        map((data) => {
+          this.postlistUpdated.next(data.posts);
+          return data.posts.map((postData: any) => {
+            const pipedPosts = {
               id: postData._id,
               title: postData.title,
               content: postData.content,
             };
+            return pipedPosts;
           });
         })
-      )
-      .subscribe((pipedData) => {
-        console.log('poster filtered', pipedData);
-        this.postlist = pipedData;
-        this.postlistUpdated.next([...this.postlist]);
-      });
+      );
   }
 
-  async getPostsPromise(): Promise<PostModel[]> {
-    return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/list')
-        .then((response) => response.json())
-        .then((rows) => {
-          console.log(rows);
-          this.postlist = this.mapPost(rows);
-          resolve(rows);
-        })
-        .catch((error) => reject(error));
-    });
+  setCurrentPosts(posts: any) {
+    this.postlistUpdated.next(posts);
   }
 
   mapPost(posts: any[]) {
@@ -72,47 +61,21 @@ export class PostService {
       });
   }
 
-  getPostUpdatedListener() {
-    return this.postlistUpdated.asObservable();
-  }
-
   async addPost(title: string, content: string): Promise<any> {
     const postCreated = { id: null, title: title, content: content };
-    return new Promise<any>((resolve, reject) => {
-      return this.http
-        .post<{ message: string; post: any }>(
-          'http://localhost:3000/insert',
-          postCreated
-        )
-        .subscribe((data) => {
-          if (!data) {
-            reject('Something went wrong!');
-          }
-          console.log(data);
-          resolve(data);
-        });
-    });
+    return this.http
+      .post<{ message: string; post: any }>(
+        'http://localhost:3000/insert',
+        postCreated
+      )
+      .subscribe((data) => {
+        if (!data) {
+          console.log('Something went wrong!');
+        }
+        console.log(data);
+        return data;
+      });
   }
-
-  /* async addPostPromise(title: string, content: string): Promise<any> {
-    let fd = new FormData();
-    fd.append('title', title);
-    fd.append('content', content);
-    console.log(fd);
-
-    return new Promise<any>((resolve, reject) => {
-      fetch('http://localhost:3000/post-create', {
-        method: 'POST',
-        body: fd,
-      })
-        .then((res) => res.json())
-        .then(({ rows }) => {
-          console.log(rows);
-          resolve(rows);
-        })
-        .catch((err) => reject(err));
-    });
-  } */
 
   deletePost(id: string) {
     //const postToDelete = { _id: id, title: title, content: content };

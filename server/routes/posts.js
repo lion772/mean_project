@@ -9,7 +9,7 @@ router.get("/", function (req, res) {
   Post.find()
     .then((rows) => {
       console.log(rows);
-      res.json(rows);
+      res.json({ message: "posts retrieved!", posts: rows });
     })
     .catch((err) => {
       console.log(err);

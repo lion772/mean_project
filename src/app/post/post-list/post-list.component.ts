@@ -12,55 +12,36 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PostListComponent implements OnInit {
   private subscription!: Subscription;
   postId!: string;
-  postList: PostModel[] = [];
+  postList: any = [];
   postFound: any;
   title!: string;
   content!: string;
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(public postService: PostService, private router: Router) {}
 
-  /* async ngOnInit() {
-    this.postList = this.postService.mapPost(
-      await this.postService.getPostsPromise()
-    );
-    console.log(this.postList);
-  }
- */
   ngOnInit() {
-    this.postService.getPosts();
-
-    this.subscription = this.postService
-      .getPostUpdatedListener()
-      .subscribe((posts: any) => {
-        this.postList = [...posts];
-        console.log(posts);
-      });
+    this.postService.getPosts().subscribe({
+      next: (pipedData) => {
+        console.log('poster filtered', pipedData);
+        this.postList = pipedData;
+      },
+      error: (err) => console.log(err.message),
+    });
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
- /*  async retrieveListPosts(): Promise<any> {
-    const success = await this.postService.getPostsPromise();
-    if (!success) {
-      console.log('an error has occurred ');
-      this.router.navigate(['**']);
-      return;
-    }
-
-    this.router.navigate(['/post/post-list']);
-  } */
 
   onClick(id: string) {
     this.postId = id;
     this.postFound = this.postService.getPost(this.postId);
-    this.title = this.postFound['title'];
-    this.content = this.postFound['content'];
-    console.log(id, this.title, this.content);
-    this.router.navigate([
-      `/post/post-detail/${this.postId}/${this.title}/${this.content}`,
-    ]);
+    if (this.postFound) {
+      this.title = this.postFound['title'];
+      this.content = this.postFound['content'];
+      console.log(id, this.title, this.content);
+      this.router.navigate([
+        `/post/post-detail/${this.postId}/${this.title}/${this.content}`,
+      ]);
+    } else {
+      throw new Error('No post found');
+    }
   }
 
   saveInLocalStorage(): void {
