@@ -1,10 +1,17 @@
-<mat-card
-  class="post-content"
-  *ngFor="let post of postList"
-  (click)="onClick(post.id)"
->
-  <div *ngIf="postService.postlistUpdated$ | async">
-    {{ post.title }} -
-    <span>{{ post.content }}</span>
+<mat-accordion multi="true">
+  <div class="post-content" *ngFor="let post of postList">
+    <div class="panel" *ngIf="postService.postlistUpdated$ | async">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <p>{{ post.title }}</p>
+        </mat-expansion-panel-header>
+        <p>{{ post.content }}</p>
+        <mat-action-row [style]="{ padding: '2px' }">
+          <button mat-button color="primary" (click)="onClick(post.id)">
+            Details
+          </button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </div>
   </div>
-</mat-card>
+</mat-accordion>

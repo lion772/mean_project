@@ -1,13 +1,17 @@
 <mat-card class="mat-card-title">
-  <h3>Enter your title:</h3>
   <mat-form-field>
-    <input matInput [(ngModel)]="inputTitle" />
+    <input matInput name="title" [(ngModel)]="inputTitle" placeholder="Title" />
   </mat-form-field>
-  <h3>Enter your content:</h3>
   <mat-form-field>
-    <input matInput [(ngModel)]="textareaInput" />
+    <textarea
+      matInput
+      rows="4"
+      name="content"
+      placeholder="Put your content here"
+      [(ngModel)]="textareaInput"
+    ></textarea>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="button" (click)="onSubmit()">
+  <button mat-button color="primary" type="button" (click)="onSubmit()">
     Save Post
   </button>
 </mat-card>

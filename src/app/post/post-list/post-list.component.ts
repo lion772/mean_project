@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit {
-  private subscription!: Subscription;
   postId!: string;
   postList: any = [];
   postFound: any;
@@ -20,11 +19,9 @@ export class PostListComponent implements OnInit {
   constructor(public postService: PostService, private router: Router) {}
 
   ngOnInit() {
-    this.postService.getPosts().subscribe({
-      next: (pipedData) => {
-        console.log('poster filtered', pipedData);
-        this.postList = pipedData;
-      },
+    this.postService.getPosts();
+    this.postService.postlistUpdated$.subscribe({
+      next: (pipedPosts) => (this.postList = pipedPosts),
       error: (err) => console.log(err.message),
     });
   }

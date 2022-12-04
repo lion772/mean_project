@@ -21,7 +21,6 @@ export class PostService {
       )
       .pipe(
         map((data) => {
-          this.postlistUpdated.next(data.posts);
           return data.posts.map((postData: any) => {
             const pipedPosts = {
               id: postData._id,
@@ -31,7 +30,15 @@ export class PostService {
             return pipedPosts;
           });
         })
-      );
+      )
+      .subscribe({
+        next: (pipedData) => {
+          console.log('poster filtered', pipedData);
+          this.postlistUpdated.next(pipedData);
+          return pipedData;
+        },
+        error: (err) => console.log(err.message),
+      });
   }
 
   setCurrentPosts(posts: any) {
@@ -73,6 +80,7 @@ export class PostService {
           console.log('Something went wrong!');
         }
         console.log(data);
+        this.getPosts();
         return data;
       });
   }

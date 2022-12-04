@@ -14,6 +14,7 @@ export class PostCreateComponent implements OnInit {
   postList: string[] = [];
   paramName: string = '';
   postModel!: PostModel;
+  postLists: any = [];
 
   constructor(
     private postService: PostService,
@@ -23,12 +24,12 @@ export class PostCreateComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit() {
-    const dataRetrieved = this.postService.addPost(
+  async onSubmit() {
+    const dataRetrieved = await this.postService.addPost(
       this.inputTitle,
       this.textareaInput
     );
     console.log('Data on post create', dataRetrieved);
-    this.router.navigate(['/post/post-list']);
+    this.router.navigate(['post/post-list']);
   }
 }
