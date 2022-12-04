@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
@@ -46,6 +47,7 @@ const routes: Routes = [{ path: 'post', component: PostListComponent }];
     MatMenuModule,
     HttpClientModule,
     MatExpansionModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -9,25 +9,22 @@ import { PostModel } from '../post.model';
   styleUrls: ['./post-create.component.css'],
 })
 export class PostCreateComponent implements OnInit {
-  textareaInput = '';
+  inputText = '';
   inputTitle = '';
-  postList: string[] = [];
-  paramName: string = '';
-  postModel!: PostModel;
-  postLists: any = [];
+  errorMsg = '';
 
-  constructor(
-    private postService: PostService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit() {}
 
-  async onSubmit() {
-    const dataRetrieved = await this.postService.addPost(
+  onSubmit() {
+    if (this.inputText.length === 0 || this.inputTitle.length === 0) {
+      this.errorMsg = 'Invalid input(s)';
+      return;
+    }
+    const dataRetrieved = this.postService.addPost(
       this.inputTitle,
-      this.textareaInput
+      this.inputText
     );
     console.log('Data on post create', dataRetrieved);
     this.router.navigate(['post/post-list']);

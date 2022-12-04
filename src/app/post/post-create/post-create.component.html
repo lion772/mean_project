@@ -1,16 +1,24 @@
 <mat-card class="mat-card-title">
   <mat-form-field>
-    <input matInput name="title" [(ngModel)]="inputTitle" placeholder="Title" />
+    <input
+      matInput
+      name="title"
+      placeholder="title"
+      [(ngModel)]="inputTitle"
+      required
+    />
   </mat-form-field>
   <mat-form-field>
-    <textarea
+    <input
       matInput
-      rows="4"
       name="content"
-      placeholder="Put your content here"
-      [(ngModel)]="textareaInput"
-    ></textarea>
+      placeholder="content"
+      [(ngModel)]="inputText"
+      id="content"
+      required
+    />
   </mat-form-field>
+  <p *ngIf="errorMsg" [style]="{ color: 'red' }">{{ errorMsg }}</p>
   <button mat-button color="primary" type="button" (click)="onSubmit()">
     Save Post
   </button>
