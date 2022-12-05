@@ -25,8 +25,8 @@ app.all("/*", function (req, res, next) {
 
 app.use("/list", getRoute);
 app.use("/insert", addRoute);
-app.use("/", deleteRoute);
-app.use("/", updateRoute);
+app.use("/delete", deleteRoute);
+app.use("/update", updateRoute);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
