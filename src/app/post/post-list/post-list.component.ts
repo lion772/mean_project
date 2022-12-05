@@ -10,11 +10,16 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit {
+  postList?: PostModel[] | null = [];
+  postFound!: {
+    id?: string | undefined;
+    title?: string | undefined;
+    content?: string | undefined;
+  };
+  //Params
   postId!: string;
-  postList: any = [];
-  postFound: any;
-  title!: string;
-  content!: string;
+  title!: string | undefined;
+  content!: string | undefined;
 
   constructor(public postService: PostService, private router: Router) {}
 
@@ -42,7 +47,9 @@ export class PostListComponent implements OnInit {
   }
 
   saveInLocalStorage(): void {
-    localStorage.setItem('title', this.title);
-    localStorage.setItem('content', this.content);
+    if (this.title && this.content) {
+      localStorage.setItem('title', this.title);
+      localStorage.setItem('content', this.content);
+    }
   }
 }

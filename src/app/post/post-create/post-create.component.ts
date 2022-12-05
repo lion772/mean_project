@@ -27,6 +27,6 @@ export class PostCreateComponent implements OnInit {
       this.inputText
     );
     console.log('Data on post create', dataRetrieved);
-    this.router.navigate(['post/post-list']);
+    this.router.navigate(['/post/post-list']);
   }
 }
