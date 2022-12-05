@@ -17,7 +17,6 @@ export class PostListComponent implements OnInit {
     content?: string | undefined;
   };
   //Params
-  postId!: string;
   title!: string | undefined;
   content!: string | undefined;
 
@@ -32,14 +31,12 @@ export class PostListComponent implements OnInit {
   }
 
   onClick(id: string) {
-    this.postId = id;
-    this.postFound = this.postService.getPost(this.postId);
+    this.postFound = this.postService.getPost(id);
     if (this.postFound) {
       this.title = this.postFound['title'];
       this.content = this.postFound['content'];
-      console.log(id, this.title, this.content);
       this.router.navigate([
-        `/post/post-detail/${this.postId}/${this.title}/${this.content}`,
+        `/post/post-detail/${id}/${this.title}/${this.content}`,
       ]);
     } else {
       throw new Error('No post found');

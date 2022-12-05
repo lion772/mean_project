@@ -22,11 +22,7 @@ export class PostCreateComponent implements OnInit {
       this.errorMsg = 'Invalid input(s)';
       return;
     }
-    const dataRetrieved = this.postService.addPost(
-      this.inputTitle,
-      this.inputText
-    );
-    console.log('Data on post create', dataRetrieved);
+    this.postService.addPost(this.inputTitle, this.inputText);
     this.router.navigate(['/post/post-list']);
   }
 }

@@ -15,7 +15,7 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   getPosts() {
-    return this.http
+    this.http
       .get<{ message: string; posts: PostModel[] }>(
         'http://localhost:3000/list'
       )
@@ -32,9 +32,9 @@ export class PostService {
         })
       )
       .subscribe({
-        next: (pipedData) => {
-          console.log('poster filtered', pipedData);
-          this.postlistUpdated.next(pipedData);
+        next: (pipedData: PostModel[]) => {
+          this.postlist = pipedData;
+          this.postlistUpdated.next([...this.postlist]);
           return pipedData;
         },
         error: (err) => console.log(err.message),
@@ -68,9 +68,9 @@ export class PostService {
       });
   }
 
-  async addPost(title: string, content: string): Promise<any> {
+  addPost(title: string, content: string) {
     const postCreated = { id: null, title: title, content: content };
-    return this.http
+    this.http
       .post<{ message: string; post: any }>(
         'http://localhost:3000/insert',
         postCreated
