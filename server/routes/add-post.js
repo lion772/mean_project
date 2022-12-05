@@ -6,11 +6,11 @@ const { insertPost } = require("../../databasepg");
 //MongoDB
 router.post("/", function (req, res) {
   console.log("body is ", req.body);
-  let newPost = new Post({
+  let addPost = new Post({
     title: req.body.title,
     content: req.body.content,
   });
-  newPost.save().then((post) => {
+  addPost.save().then((post) => {
     console.log(post);
     res.status(201).json({ msg: "Data stored successfully!", post: post });
   });

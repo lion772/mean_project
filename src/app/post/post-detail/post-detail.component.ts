@@ -45,8 +45,8 @@ export class PostDetailComponent implements OnInit {
     this.router.navigate(['/post/post-list']);
   }
 
-  onDeletePost = async () => {
-    await this.postService.deletePost(this.postId);
+  onDeletePost = () => {
+    this.postService.deletePost(this.postId);
     this.router.navigate(['/post/post-list']);
   };
 }

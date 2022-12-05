@@ -22,12 +22,11 @@ export class PostService {
       .pipe(
         map((data) => {
           return data.posts.map((postData: any) => {
-            const pipedPosts = {
+            return {
               id: postData._id,
               title: postData.title,
               content: postData.content,
             };
-            return pipedPosts;
           });
         })
       )
@@ -75,13 +74,16 @@ export class PostService {
         'http://localhost:3000/insert',
         postCreated
       )
-      .subscribe((data) => {
-        if (!data) {
-          console.log('Something went wrong!');
-        }
-        console.log(data);
-        this.getPosts();
-        return data;
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.postlist = [...this.postlist, data.post];
+          this.postlistUpdated.next([...this.postlist]);
+          return data;
+        },
+        error: (err) => {
+          throw new Error(err.message);
+        },
       });
   }
 

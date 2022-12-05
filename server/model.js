@@ -13,8 +13,9 @@ mongoose
     console.log(err);
   });
 
-const postSchema = new Schema({ title: String, content: String });
+const postSchema = new Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+});
 
-const post = mongoose.model("post", postSchema);
-
-module.exports = post;
+module.exports = mongoose.model("Post", postSchema);
