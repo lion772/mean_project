@@ -1,6 +1,6 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
+const bodyParser = require("body-parser");
 
 const updateRoute = require("./routes/upload");
 const addRoute = require("./routes/add-post");
@@ -10,6 +10,7 @@ const getRoute = require("./routes/posts");
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
 
 app.all("/*", function (req, res, next) {

@@ -3,7 +3,7 @@ const router = express.Router();
 const Post = require("../model");
 const { insertPost } = require("../../databasepg");
 
-//Mongoose
+//MongoDB
 router.post("/", function (req, res) {
   console.log("body is ", req.body);
   let newPost = new Post({
@@ -11,6 +11,7 @@ router.post("/", function (req, res) {
     content: req.body.content,
   });
   newPost.save().then((post) => {
+    console.log(post);
     res.status(201).json({ msg: "Data stored successfully!", post: post });
   });
 });
@@ -18,11 +19,8 @@ router.post("/", function (req, res) {
 //PostgreSQL
 /*router.post("/", async function (req, res) {
   console.log("body is ", req.body);
-  let newPost =  new Post({
-    title: req.body.title,
-    content: req.body.content,
-  });
   await insertPost(req.body.title, req.body.content);
+  res.status(201).json({ msg: "Data stored successfully!"});
 });*/
 
 module.exports = router;
