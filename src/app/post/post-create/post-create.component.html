@@ -1,25 +1,29 @@
 <mat-card class="mat-card-title">
-  <mat-form-field>
-    <input
-      matInput
-      name="title"
-      placeholder="title"
-      [(ngModel)]="inputTitle"
-      required
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <input
-      matInput
-      name="content"
-      placeholder="content"
-      [(ngModel)]="inputText"
-      id="content"
-      required
-    />
-  </mat-form-field>
-  <p *ngIf="errorMsg" [style]="{ color: 'red' }">{{ errorMsg }}</p>
-  <button mat-raised-button color="primary" type="button" (click)="onSubmit()">
-    Save Post
-  </button>
+  <form #postForm="ngForm" (submit)="onSubmit(postForm)">
+    <mat-form-field>
+      <input
+        matInput
+        name="title"
+        placeholder="title"
+        ngModel
+        #title="ngModel"
+        required
+        minlength="3"
+      />
+      <mat-error *ngIf="title.invalid">Plese enter a valid title</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        name="content"
+        placeholder="content"
+        ngModel
+        #content="ngModel"
+        required
+        minlength="3"
+      />
+      <mat-error *ngIf="content.invalid">Plese enter a valid content</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Save Post</button>
+  </form>
 </mat-card>

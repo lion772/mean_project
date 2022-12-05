@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../post.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostModel } from '../post.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-post-create',
@@ -17,12 +18,12 @@ export class PostCreateComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit() {
-    if (this.inputText.length === 0 || this.inputTitle.length === 0) {
-      this.errorMsg = 'Invalid input(s)';
+  onSubmit(postForm: NgForm) {
+    if (postForm.invalid) {
       return;
     }
-    this.postService.addPost(this.inputTitle, this.inputText);
+    console.log(postForm.value.title, postForm.value.content);
+    this.postService.addPost(postForm.value.title, postForm.value.content);
     this.router.navigate(['/post/post-list']);
   }
 }
