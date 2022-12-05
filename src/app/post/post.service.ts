@@ -52,7 +52,7 @@ export class PostService {
   }
 
   getPost(id: string) {
-    return { ...this.postlist.find((p) => p.id === id) };
+    return this.postlist.find((p) => p.id === id);
   }
 
   updatePost(id: string, title: string, content: string) {

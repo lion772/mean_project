@@ -10,8 +10,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./post-create.component.css'],
 })
 export class PostCreateComponent implements OnInit {
-  inputText = '';
-  inputTitle = '';
   errorMsg = '';
 
   constructor(private postService: PostService, private router: Router) {}
@@ -22,8 +20,8 @@ export class PostCreateComponent implements OnInit {
     if (postForm.invalid) {
       return;
     }
-    console.log(postForm.value.title, postForm.value.content);
     this.postService.addPost(postForm.value.title, postForm.value.content);
+    postForm.resetForm();
     this.router.navigate(['/post/post-list']);
   }
 }

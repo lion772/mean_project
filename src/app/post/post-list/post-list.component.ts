@@ -11,11 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PostListComponent implements OnInit {
   postList?: PostModel[] | null = [];
-  postFound!: {
-    id?: string | undefined;
-    title?: string | undefined;
-    content?: string | undefined;
-  };
+  postFound?: PostModel | undefined;
   //Params
   title!: string | undefined;
   content!: string | undefined;

@@ -4,7 +4,7 @@ const { username, password } = require("../secrets.json");
 
 mongoose
   .connect(
-    `mongodb+srv://${username}:${password}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://${username}:${password}@cluster0.xe1fe.mongodb.net/posts?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("Connected to MongoDB!");

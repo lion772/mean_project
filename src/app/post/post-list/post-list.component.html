@@ -1,4 +1,4 @@
-<mat-accordion multi="true">
+<mat-accordion multi="true" *ngIf="postService.postlistUpdated$ | async">
   <div class="post-content" *ngFor="let post of postList">
     <div class="panel" *ngIf="postService.postlistUpdated$ | async">
       <mat-expansion-panel>
@@ -15,3 +15,9 @@
     </div>
   </div>
 </mat-accordion>
+
+<div [style]="{ 'text-align': 'center' }">
+  <div *ngIf="postList?.length === 0">
+    <p>There's no post yet. Don't you want to add some?</p>
+  </div>
+</div>
