@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PostListComponent implements OnInit {
   postList?: PostModel[] | null = [];
   postFound?: PostModel | undefined;
+  isLoading = false;
   //Params
   title!: string | undefined;
   content!: string | undefined;
@@ -19,6 +20,10 @@ export class PostListComponent implements OnInit {
   constructor(public postService: PostService, private router: Router) {}
 
   ngOnInit() {
+    this.postService.isLoading$.subscribe((isLoading) => {
+      console.log(isLoading);
+      this.isLoading = isLoading;
+    });
     this.postService.getPosts();
     this.postService.postlistUpdated$.subscribe({
       next: (pipedPosts) => (this.postList = pipedPosts),

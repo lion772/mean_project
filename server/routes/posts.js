@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../model");
 const { getPosts } = require("../../databasepg");
+const { getPositionOfLineAndCharacter } = require("typescript");
 
 //Route Mongoose alternative
 router.get("/", function (req, res) {
@@ -16,6 +17,21 @@ router.get("/", function (req, res) {
     });
 });
 
+router.get("/:id", (req, res) => {
+  console.log("*****************************");
+  console.log("Get post from a given id");
+  console.log("*****************************");
+
+  Post.find({ _id: req.params.id })
+    .then((rows) => {
+      console.log("RESPONSE: ", rows);
+      res.status(200).json({ message: "post retrieved!", post: rows });
+    })
+    .catch((err) =>
+      res.status(404).json({ message: `Post not found. Error: ${err.message}` })
+    );
+});
+
 //Route PostgreSQL alternative
 /*router.get("/", async function (req, res) {
   console.log("Post-list route called!");
@@ -25,16 +41,3 @@ router.get("/", function (req, res) {
 });*/
 
 module.exports = router;
-
-//Subject management data alternative
-/*app.get("/", (req, res) => {
-  console.log("running!");
-  Post.find()
-    .then((data) => {
-      console.log(data);
-      res.status(200).send({ message: "success", posts: data });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});*/

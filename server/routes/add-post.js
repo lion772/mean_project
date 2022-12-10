@@ -12,7 +12,7 @@ router.post("/", function (req, res) {
   });
   addPost.save().then((post) => {
     console.log(post);
-    res.status(201).json({ msg: "Data stored successfully!", post: post });
+    res.status(201).json({ msg: "Data stored successfully!", post });
   });
 });
 

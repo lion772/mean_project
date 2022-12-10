@@ -24,10 +24,11 @@ app.all("/*", function (req, res, next) {
   next();
 });
 
-app.use("/list", getRoute);
-app.use("/insert", addRoute);
-app.use("/delete", deleteRoute);
-app.use("/update", updateRoute);
+app.use("/api/post", getRoute);
+app.use("/api/post/:id", getRoute);
+app.use("/api/post", addRoute);
+app.use("/api/post", deleteRoute);
+app.use("/api/post", updateRoute);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);

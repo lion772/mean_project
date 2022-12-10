@@ -7,11 +7,11 @@
       </mat-form-field>
       <label for="title">Title</label>
       <mat-form-field>
-        <input matInput value="{{ title }} " />
+        <input matInput value="{{ title }}" [(ngModel)]="title" />
       </mat-form-field>
       <label for="content">Content</label>
       <mat-form-field>
-        <input matInput value="{{ content }}" />
+        <input matInput value="{{ content }}" [(ngModel)]="content" />
       </mat-form-field>
     </div>
     <div class="btn">

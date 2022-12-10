@@ -1,4 +1,5 @@
-<mat-accordion multi="true" *ngIf="postService.postlistUpdated$ | async">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="!isLoading">
   <div class="post-content" *ngFor="let post of postList">
     <div class="panel" *ngIf="postService.postlistUpdated$ | async">
       <mat-expansion-panel>
