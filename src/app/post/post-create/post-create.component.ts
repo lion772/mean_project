@@ -11,7 +11,6 @@ import { NgForm } from '@angular/forms';
 })
 export class PostCreateComponent implements OnInit {
   errorMsg = '';
-  isLoading = false;
 
   constructor(private postService: PostService, private router: Router) {}
 
@@ -21,9 +20,7 @@ export class PostCreateComponent implements OnInit {
     if (postForm.invalid) {
       return;
     }
-    this.postService.isLoading$.subscribe(
-      (isLoading) => (this.isLoading = isLoading)
-    );
+
     this.postService.addPost(postForm.value.title, postForm.value.content);
     postForm.resetForm();
     this.router.navigate(['/post/post-list']);

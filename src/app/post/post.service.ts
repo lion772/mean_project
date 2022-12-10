@@ -54,13 +54,14 @@ export class PostService {
   }
 
   updatePost(id: string, title: string, content: string) {
+    this.isLoading.next(true);
     const postToUpdate = { _id: id, title: title, content: content };
-    //todo: DELETE posts:PostModel[] from put method type
     this.http
       .put<{ message: string }>(`${BASE_URL_ENDPOINT}/${id}`, postToUpdate)
       .subscribe({
         next: (res) => {
           console.log('Update request made: ', res);
+          this.isLoading.next(false);
 
           const updatedPosts = [...this.postlist]; //clone original posts list
           const oldPostIndex = updatedPosts.findIndex((p) => p.id === id); //grab the to be updated post index
@@ -92,11 +93,15 @@ export class PostService {
   }
 
   deletePost(id: string) {
+    this.isLoading.next(true);
+
     this.http
       .delete<{ message: string; isDeleted: boolean }>(
         `${BASE_URL_ENDPOINT}/${id}`
       )
       .subscribe((_) => {
+        this.isLoading.next(false);
+
         console.log('deleted!');
         const updatedPosts = this.postlist.filter((post) => post.id !== id);
         this.postlistUpdated.next([...updatedPosts]);

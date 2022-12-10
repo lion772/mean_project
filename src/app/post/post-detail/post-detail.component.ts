@@ -13,6 +13,7 @@ export class PostDetailComponent implements OnInit {
   title!: string;
   content!: string;
   isEditable: boolean = false;
+  isLoading = false;
 
   constructor(
     private postService: PostService,
@@ -21,6 +22,9 @@ export class PostDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.postService.isLoading$.subscribe(
+      (isLoading) => (this.isLoading = isLoading)
+    );
     this.route.params
       .pipe(map((data) => data['id']))
       .subscribe((retrievedData) => {
