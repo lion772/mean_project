@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PostModel } from '../post.model';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-create',
@@ -11,19 +10,28 @@ import { NgForm } from '@angular/forms';
 })
 export class PostCreateComponent implements OnInit {
   errorMsg = '';
+  form!: FormGroup;
 
   constructor(private postService: PostService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.form = new FormGroup({
+      title: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      content: new FormControl(null, {
+        validators: [Validators.required],
+      }),
+    });
+  }
 
-  onSubmit(postForm: NgForm) {
-    if (postForm.invalid) {
+  onSubmit() {
+    if (this.form.invalid) {
       return;
     }
 
-    this.postService.addPost(postForm.value.title, postForm.value.content);
-    postForm.resetForm();
+    this.postService.addPost(this.form.value.title, this.form.value.content);
+    this.form.reset();
     this.router.navigate(['/post/post-list']);
   }
-
 }

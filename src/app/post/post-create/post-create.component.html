@@ -1,17 +1,9 @@
 <mat-card class="mat-card-title">
-  <form #postForm="ngForm" (submit)="onSubmit(postForm)">
+  <form [formGroup]="form" (submit)="onSubmit()">
     <mat-form-field>
-      <input
-        matInput
-        name="title"
-        placeholder="title"
-        ngModel
-        #title="ngModel"
-        required
-        minlength="3"
-      />
-      <mat-error *ngIf="title.invalid"
-        >Plese enter a valid title (at least 3 characters)</mat-error
+      <input matInput formControlName="title" placeholder="title" />
+      <mat-error *ngIf="form.get('title')?.invalid"
+        >Please enter a valid title (3 characters at least)</mat-error
       >
     </mat-form-field>
     <div>
@@ -21,17 +13,9 @@
       <input type="file" #filePicker />
     </div>
     <mat-form-field>
-      <input
-        matInput
-        name="content"
-        placeholder="content"
-        ngModel
-        #content="ngModel"
-        required
-        minlength="3"
-      />
-      <mat-error *ngIf="content.invalid"
-        >Plese enter a valid content (at least 3 characters)</mat-error
+      <input matInput formControlName="content" placeholder="content" />
+      <mat-error *ngIf="form.get('content')?.invalid"
+        >Please enter a valid content</mat-error
       >
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Save Post</button>
