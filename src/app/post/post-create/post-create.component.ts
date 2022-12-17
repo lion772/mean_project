@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PostCreateComponent implements OnInit {
   errorMsg = '';
   form!: FormGroup;
+  imagePreview!: string;
 
   constructor(private postService: PostService, private router: Router) {}
 
@@ -39,10 +40,17 @@ export class PostCreateComponent implements OnInit {
   }
 
   onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files; //file object
+    const fileList = (event.target as HTMLInputElement).files; //file object list
+    const file = fileList && fileList[0]; //file object
     this.form.patchValue({ image: file });
     this.form.get('image')?.updateValueAndValidity();
-    console.log(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+
+    reader.readAsDataURL(file as Blob);
+
     console.log(this.form);
   }
 }
