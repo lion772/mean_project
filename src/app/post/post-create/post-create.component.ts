@@ -25,4 +25,5 @@ export class PostCreateComponent implements OnInit {
     postForm.resetForm();
     this.router.navigate(['/post/post-list']);
   }
+
 }
