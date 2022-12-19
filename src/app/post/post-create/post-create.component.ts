@@ -35,8 +35,11 @@ export class PostCreateComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
-    this.postService.addPost(this.form.value.title, this.form.value.content);
+    this.postService.addPost(
+      this.form.value.title,
+      this.form.value.content,
+      this.form.value.image
+    );
     this.form.reset();
     this.router.navigate(['/post/post-list']);
   }

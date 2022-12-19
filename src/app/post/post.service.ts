@@ -73,12 +73,15 @@ export class PostService {
       });
   }
 
-  addPost(title: string, content: string) {
-    const postCreated = { id: null, title: title, content: content };
-    //
+  addPost(title: string, content: string, image: File) {
+    const postData = new FormData();
+    postData.append('title', title);
+    postData.append('content', content);
+    postData.append('image', image, title);
+
     this.isLoading.next(true);
     this.http
-      .post<{ message: string; post: any }>(BASE_URL_ENDPOINT, postCreated)
+      .post<{ message: string; post: any }>(BASE_URL_ENDPOINT, postData)
       .subscribe({
         next: (data) => {
           this.isLoading.next(false);
