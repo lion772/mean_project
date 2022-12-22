@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'post/post-create', component: PostCreateComponent },
   { path: 'post/post-list', component: PostListComponent },
   {
-    path: 'post/post-detail/:id/:title/:content',
+    path: 'post/post-detail/:id',
     component: PostDetailComponent,
   },
   { path: '**', component: NotfoundComponent },

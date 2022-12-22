@@ -16,6 +16,9 @@ export class PostService {
   postlistUpdated$ = this.postlistUpdated.asObservable();
   private isLoading = new BehaviorSubject<boolean>(false);
   isLoading$ = this.isLoading.asObservable();
+  private title?: string | undefined;
+  private content?: string | undefined;
+  private imagePath?: string | undefined;
 
   constructor(private http: HttpClient) {}
 
@@ -31,6 +34,7 @@ export class PostService {
               id: postData._id,
               title: postData.title,
               content: postData.content,
+              imagePath: postData.imagePath,
             };
           });
         })
@@ -45,17 +49,27 @@ export class PostService {
       });
   }
 
-  setCurrentPosts(posts: any) {
-    this.postlistUpdated.next(posts);
+  getCurrentPosts() {
+    return this.postlist;
   }
 
   getPost(id: string) {
     return this.postlist.find((p) => p.id === id);
   }
 
-  updatePost(id: string, title: string, content: string) {
+  updatePost(
+    id: string,
+    title?: string | undefined,
+    content?: string | undefined,
+    imagePath?: string | undefined
+  ) {
     this.isLoading.next(true);
-    const postToUpdate = { _id: id, title: title, content: content };
+    const postToUpdate = {
+      _id: id,
+      title: title,
+      content: content,
+      imagePath: imagePath,
+    };
     this.http
       .put<{ message: string }>(`${BASE_URL_ENDPOINT}/${id}`, postToUpdate)
       .subscribe({
@@ -65,7 +79,13 @@ export class PostService {
 
           const updatedPosts = [...this.postlist]; //clone original posts list
           const oldPostIndex = updatedPosts.findIndex((p) => p.id === id); //grab the to be updated post index
-          updatedPosts[oldPostIndex] = { id, title, content }; //replace the properties with the new ones
+          updatedPosts[oldPostIndex] = {
+            id,
+            title: title || '',
+            content: content || '',
+            imagePath: imagePath || '',
+          }; //replace the properties with the new ones
+
           this.postlist = updatedPosts; //replace the whole list with the updated one
           this.postlistUpdated.next([...this.postlist]);
         },

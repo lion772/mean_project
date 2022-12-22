@@ -37,7 +37,7 @@ export class PostListComponent implements OnInit {
       this.title = this.postFound['title'];
       this.content = this.postFound['content'];
       this.router.navigate([
-        `/post/post-detail/${id}/${this.title}/${this.content}`,
+        `/post/post-detail/${id}`,
       ]);
     } else {
       throw new Error('No post found');
