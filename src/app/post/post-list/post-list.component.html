@@ -6,6 +6,9 @@
         <mat-expansion-panel-header>
           <p>{{ post.title }}</p>
         </mat-expansion-panel-header>
+        <div class="post-image">
+          <img [src]="post.imagePath" [alt]="post.title">
+        </div>
         <p>{{ post.content }}</p>
         <mat-action-row [style]="{ padding: '2px' }">
           <button mat-button color="accent" (click)="onClick(post.id)">

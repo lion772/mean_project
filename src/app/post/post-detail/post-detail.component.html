@@ -15,6 +15,9 @@
         <input matInput value="{{ content }}" [(ngModel)]="content" />
       </mat-form-field>
     </div>
+    <div class="image-preview" *ngIf="imagePath != '' && imagePath">
+      <img [src]="imagePath" [alt]="title" />
+    </div>
     <div class="btn">
       <button
         *ngIf="!isEditable"

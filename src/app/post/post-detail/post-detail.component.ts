@@ -14,6 +14,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   title?: string | undefined;
   content?: string | undefined;
   imagePath?: string | undefined;
+  imagePreview!: string;
 
   post!: PostModel | undefined;
   isEditable: boolean = false;
@@ -40,6 +41,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
           this.title = this.post?.title;
           this.content = this.post?.content;
           this.imagePath = this.post?.imagePath;
+          console.log(this.imagePath);
         });
       },
       error: (err) => console.log(err.message),
