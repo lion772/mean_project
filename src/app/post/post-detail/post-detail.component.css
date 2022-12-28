@@ -19,8 +19,10 @@
 }
 
 .image-preview {
+  display: flex;
+  justify-content: center;
   height: 5rem;
-  margin: 1rem 0;
+  margin: 2rem auto;
 }
 
 .image-preview img {

@@ -7,7 +7,7 @@
           <p>{{ post.title }}</p>
         </mat-expansion-panel-header>
         <div class="post-image">
-          <img [src]="post.imagePath" [alt]="post.title">
+          <img [src]="post.imagePath" [alt]="post.title" />
         </div>
         <p>{{ post.content }}</p>
         <mat-action-row [style]="{ padding: '2px' }">
@@ -19,6 +19,12 @@
     </div>
   </div>
 </mat-accordion>
+<mat-paginator
+  [length]="totalPosts"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+></mat-paginator>
 
 <div [style]="{ 'text-align': 'center' }">
   <div *ngIf="postList?.length === 0">

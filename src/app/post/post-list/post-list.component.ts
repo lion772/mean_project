@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { PostService } from '../post.service';
 import { PostModel } from '../post.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-post-list',
@@ -13,6 +14,9 @@ export class PostListComponent implements OnInit {
   postList?: PostModel[] | null = [];
   postFound?: PostModel | undefined;
   isLoading = false;
+  totalPosts = 10;
+  postsPerPage = 2;
+  pageSizeOptions = [1, 2, 5, 10];
   //Params
   title!: string | undefined;
   content!: string | undefined;
@@ -36,9 +40,7 @@ export class PostListComponent implements OnInit {
     if (this.postFound) {
       this.title = this.postFound['title'];
       this.content = this.postFound['content'];
-      this.router.navigate([
-        `/post/post-detail/${id}`,
-      ]);
+      this.router.navigate([`/post/post-detail/${id}`]);
     } else {
       throw new Error('No post found');
     }
@@ -49,5 +51,9 @@ export class PostListComponent implements OnInit {
       localStorage.setItem('title', this.title);
       localStorage.setItem('content', this.content);
     }
+  }
+
+  onChangePage(pageEvent: PageEvent) {
+
   }
 }

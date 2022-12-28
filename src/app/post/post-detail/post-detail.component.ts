@@ -48,6 +48,18 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  onImagePicked(event: Event) {
+    console.log('clicked', event.target);
+    const fileList = (event.target as HTMLInputElement).files; //file object list
+    const file = fileList && fileList[0]; //file object
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+
+    reader.readAsDataURL(file as unknown as Blob);
+  }
+
   onUpdatePost() {
     this.postService.updatePost(
       this.postId,

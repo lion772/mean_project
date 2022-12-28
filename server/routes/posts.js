@@ -3,11 +3,20 @@ const router = express.Router();
 const Post = require("../model");
 const { getPosts } = require("../../databasepg");
 const { getPositionOfLineAndCharacter } = require("typescript");
+const { LiteralPrimitive } = require("@angular/compiler");
 
 //Route Mongoose alternative
 router.get("/", function (req, res) {
   console.log("Post-list route called!");
-  Post.find()
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+
+  if (pageSize && currentPage) {
+    postQuery.skip(pageSize + (currentPage - 1)).limit(pageSize);
+  }
+
+  postQuery
     .then((rows) => {
       console.log(rows);
       res.status(200).json({ message: "posts retrieved!", posts: rows });

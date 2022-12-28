@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
@@ -48,6 +49,7 @@ import { PostDetailComponent } from './post/post-detail/post-detail.component';
     MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
