@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../model");
 const { getPosts } = require("../../databasepg");
-const { getPositionOfLineAndCharacter } = require("typescript");
-const { LiteralPrimitive } = require("@angular/compiler");
+
 
 //Route Mongoose alternative
 router.get("/", function (req, res) {
